@@ -8,7 +8,7 @@ class Activity {
         this.rating = activityAtrributes.rating
         this.min_age = activityAtrributes.min_age
         this.image_url = activityAtrributes.image_url
-        this.category = activityAtrributes.category.name
+        this.category = activityAtrributes.category
         // Activity.all.push(this)
         // console.log(this)
     }

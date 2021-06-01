@@ -41,26 +41,26 @@ class Activities {
             })
     }
  
+    // static findCategoryById(id) {
+    //     return this.categories.find(category => category.id === id);
+    // }
+
     createActivity(e) {
         e.preventDefault()
-        const newActTitle = document.querySelector('#act-title').value
-        const newActCity = document.querySelector('#act-city').value
-        const newActState = document.querySelector('#act-state').value
-        const newActDescription = document.querySelector('#act-description').value
-        const newActRating = document.querySelector('#act-rating').value
-        const newActMinAge = document.querySelector('#act-age').value
-        const newActUrl = document.querySelector('#act-url').value
-        const categoryId = parseInt(document.querySelector('#categories').value)
-        this.adapter.activityCreate(newActTitle, newActCity, newActState, newActDescription, newActRating, newActMinAge, newActUrl, categoryId)
-        // .then(activity => {
-                // console.log(activity);
-                // const activityData = activity.data
-                // let newActivity = new Activity(activity, activity.attributes)
-                // this.activities.push(new Activity(activityData, activityData.attributes))
-                // this.reset()
-                // this.render()
+        const newActTitle = document.getElementById('act-title').value
+        const newActCity = document.getElementById('act-city').value
+        const newActState = document.getElementById('act-state').value
+        const newActDescription = document.getElementById('act-description').value
+        const newActRating = document.getElementById('act-rating').value
+        const newActMinAge = document.getElementById('act-age').value
+        const newActUrl = document.getElementById('act-url').value
+        const categoryId = parseInt(document.getElementById('categories').value)
+        this.adapter.createActivity(newActTitle, newActCity, newActState, newActDescription, newActRating, newActMinAge, newActUrl, categoryId).then(activity => {
+            this.activities.push(new Activity(activity.id, activity, activity.attributes))
+                    this.reset()
+                    window.location.reload()
+            })
             
-        // this.activityCreate(newActTitle, newActCity, newActState, newActDescription, newActRating, newActMinAge, newActUrl, categoryId)
     }
  //render function to display data to the DOM
     render() {
@@ -73,7 +73,9 @@ class Activities {
             <li><strong>Description: </strong>${activity.description}</li>
             <li><strong>Rating: </strong>${activity.rating}</li>
             <li><strong>Minimum Age: </strong>${activity.min_age}</li>
-            <li><strong>Category: </strong>${activity.category}</li>
-            </ul>`).join('')
+            <li><strong>Category: </strong>${activity.category.name}</li>
+            </ul>
+            <button class="delete-bttn" data-id=${activity.id}>Delete Activity</button> || <button class="edit-bttn" data-id=${activity.id}>Edit Activity</button>`).join('')
+            
     }
 }
