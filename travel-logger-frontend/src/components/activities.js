@@ -4,21 +4,44 @@ class Activities {
         this.categories = []
         this.adapter = new ActivitiesAdapter()
         this.catadapter = new CategoriesAdapter()
-        this.createActivityForm()
+        this.bindingsAndEventListeners()
         this.fetchCategories()
         this.fetchActivities()
     }
 
-    createActivityForm(){
+    bindingsAndEventListeners(){
+        this.activitiesContainer = document.getElementById('activities-container')
         this.activityForm = document.getElementById('new-activity-form')
         this.activityForm.addEventListener('submit', this.createActivity.bind(this))
+        this.buttonDelete = document.getElementById('activity-content')
+        this.buttonDelete.addEventListener('click', this.handleDeleteClick.bind(this))
+        this.buttonDelete.addEventListener('click', this.handleUpdateClick.bind(this))
     }
 
     reset() {
         let form = document.getElementById("new-activity-form");
         form.reset()
     }
+    
+    handleUpdateClick(){
+        var clicked = event.target;
+        let activityId = parseInt(event.target.dataset.id)
+        if (clicked.id === 'ed') {
+            console.log("editing")
+        }
+    }
 
+    handleDeleteClick(){
+        var clicked = event.target;
+        let activityId = parseInt(event.target.dataset.id)
+        if (clicked.id === 'del') {
+        // } else if (clicked.id === 'ed') {
+        //   console.log('what')
+        fetch(`http://localhost:3000/activities/${activityId}`, {
+            method: 'DELETE'
+        })
+        };
+    }
     fetchCategories(){
         this.catadapter
             .getCategories()
@@ -62,9 +85,14 @@ class Activities {
             })
             
     }
+
+    deleteActivity = (e) => {
+        e.preventDefault();
+        console.log("clicked");
+    };
  //render function to display data to the DOM
     render() {
-        this.activitiesContainer = document.getElementById('activities-container')
+        
         this.activitiesContainer.innerHTML = this.activities.map(activity => 
             `<li><h2>${activity.title}</h2></li> <img src=${activity.image_url} width="300" height="190">
             <ul>
@@ -75,7 +103,7 @@ class Activities {
             <li><strong>Minimum Age: </strong>${activity.min_age}</li>
             <li><strong>Category: </strong>${activity.category.name}</li>
             </ul>
-            <button class="delete-bttn" data-id=${activity.id}>Delete Activity</button> || <button class="edit-bttn" data-id=${activity.id}>Edit Activity</button>`).join('')
+            <button class="delete-bttn" id="del" data-id=${activity.id}>Delete Activity</button> || <button class="edit-bttn" id="ed" data-id=${activity.id}>Edit Activity</button>`).join('')
             
     }
 }

@@ -21,5 +21,7 @@ class ActivitiesAdapter {
             }).then(res => res.json())
            
     }
+
+
 }
 //adapter's only job is to communicate with the backend api. Talks to API and hands info to the frontend. 
