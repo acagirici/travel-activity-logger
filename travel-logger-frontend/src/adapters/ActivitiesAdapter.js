@@ -19,11 +19,7 @@ class ActivitiesAdapter {
             },
             body: JSON.stringify(bodyData),
             }).then(res => res.json())
-            // .then(activity => {
-            //     console.log(activity);
-            //     // const activityData = activity.data
-            //     let newActivity = new Activity(activity, activity.attributes)
-            //     newActivity.Activities.render()
+           
     }
 }
 //adapter's only job is to communicate with the backend api. Talks to API and hands info to the frontend. 
